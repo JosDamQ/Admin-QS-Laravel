@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_id')->nullable(false);
             $table->unsignedBigInteger('status_id')->nullable(false);
             $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('status_id')->references('id')->on('status');
+            $table->foreign('status_id')->references('id')->on('statuses');
             $table->timestamps();
         });
     }
