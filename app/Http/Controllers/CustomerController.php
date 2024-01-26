@@ -12,9 +12,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customers.index', [
-            'customers' => Customer::orderBy('id', 'desc')->get(),
-        ]);
+        $customers = Customer::orderBy('id', 'desc')->paginate(100);
+
+        return view('customers.index', compact('customers'));
     }
 
     /**
@@ -34,8 +34,8 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
+            'email' => 'required|email|unique:customers',
+            'phone' => 'required|min:8',
             'password' => 'required',
         ]);
 
@@ -80,7 +80,7 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required',
             'surname' => 'required',
-            'phone' => 'required'
+            'phone' => 'required|min:8'
         ]);
 
         $data = request()->only('name', 'surname', 'phone');
