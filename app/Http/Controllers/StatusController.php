@@ -12,7 +12,9 @@ class StatusController extends Controller
      */
     public function index()
     {
-        //
+        return view('statuses.index', [
+            'statuses' => Status::orderBy('created_at', 'desc')->get(),
+        ]);
     }
 
     /**
@@ -28,7 +30,20 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $data = request()->only('name', 'description');
+        //insert into DB
+        Status::create([
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ]);
+        session()->flash('statusKey', 'Status was created!');
+        return to_route('status.index');
     }
 
     /**
@@ -42,9 +57,12 @@ class StatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Status $status)
+    public function edit($status)
     {
-        //
+        $status = Status::findOrFail($status);
+        return view('statuses.edit', [
+            'status' => $status,
+        ]);
     }
 
     /**
@@ -52,7 +70,19 @@ class StatusController extends Controller
      */
     public function update(Request $request, Status $status)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
+        $data = request()->only('name', 'description');
+
+        $status->update([
+            'name' => $data['name'],
+            'description' => $data['description'],
+        ]);
+        //session()->flash('statusKey', 'Status was updated!');
+        return to_route('status.index')->with('statusKey', 'Status was updated!');
     }
 
     /**
@@ -60,6 +90,9 @@ class StatusController extends Controller
      */
     public function destroy(Status $status)
     {
-        //
+        //Elimina el registro de la base de datos
+        $status->delete();
+        session()->flash('statusKey', 'Status was deleted!');
+        return to_route('status.index');
     }
 }

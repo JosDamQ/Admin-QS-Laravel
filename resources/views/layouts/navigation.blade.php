@@ -1,3 +1,9 @@
+@if(session('statusKey'))
+    <div class="bg-green-500 text-green-100 text-center text-lg font-bold p-2">
+        {{ session('statusKey') }}
+    </div>
+@endif
+
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,16 +19,27 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <!--  <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Dashboard') }}         
                     </x-nav-link> -->
-                    <x-nav-link :href="route('status.index')" :active="request()->routeIs('status.index')">
+                    <x-nav-link :href="route('status.index')" :active="request()->routeIs('status.*')">
                         {{ __('Status') }}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                          </svg>
                     </x-nav-link>
-                    <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
+                    <x-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.*')">
                         {{ __('Customers') }}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                          </svg>
+                          
                     </x-nav-link>
-                    <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.index')">
+                    <x-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                         {{ __('Packages') }}
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 13.5h3.86a2.25 2.25 0 0 1 2.012 1.244l.256.512a2.25 2.25 0 0 0 2.013 1.244h3.218a2.25 2.25 0 0 0 2.013-1.244l.256-.512a2.25 2.25 0 0 1 2.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 0 0-2.15-1.588H6.911a2.25 2.25 0 0 0-2.15 1.588L2.35 13.177a2.25 2.25 0 0 0-.1.661Z" />
+                          </svg>
+                          
                     </x-nav-link>
                 </div>
             </div>
@@ -76,13 +93,13 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('status.index')" :active="request()->routeIs('status.index')">
+            <x-responsive-nav-link :href="route('status.index')" :active="request()->routeIs('status.*')">
                 {{ __('Status') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.index')">
+            <x-responsive-nav-link :href="route('customers.index')" :active="request()->routeIs('customers.*')">
                 {{ __('Customers') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.index')">
+            <x-responsive-nav-link :href="route('packages.index')" :active="request()->routeIs('packages.*')">
                 {{ __('Package') }}
             </x-responsive-nav-link>
         </div>

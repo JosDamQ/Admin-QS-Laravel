@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Status;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,25 +25,30 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::view('/dashboard', 'dashboard')->middleware('verified')->name('dashboard');
-    /*Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware('verified')->name('dashboard');*/
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/status', function () {
-        return view('statuses.index');
-    })->middleware('verified')->name('status.index');
+    //Status Routes
+    Route::get('/status', [StatusController:: class, 'index'])->middleware('verified')->name('status.index');
+    Route::post('/status', [StatusController:: class, 'store'])->middleware('verified')->name('status.store');
+    Route::get('/status/{id}/edit', [StatusController:: class, 'edit'])->middleware('verified')->name('status.edit');
+    Route::put('/status/{status}', [StatusController:: class, 'update'])->middleware('verified')->name('status.update');
+    Route::delete('/status/{status}', [StatusController:: class, 'destroy'])->middleware('verified')->name('status.destroy');
+
+    //Customer Routes
+    Route::get('/customers', [CustomerController:: class, 'index'])->middleware('verified')->name('customers.index');
+
     Route::get('/packages', function () {
         return view('packages.index');
     })->middleware('verified')->name('packages.index');
-    Route::get('/customers', function () {
-        return view('customers.index');
-    })->middleware('verified')->name('customers.index');
+    
     Route::get('/prueba', function () {
         return view('prueba.index');
     })->middleware('verified')->name('prueba.index');
+
+    
+    
 });
 
 require __DIR__.'/auth.php';
