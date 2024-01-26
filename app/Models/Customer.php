@@ -16,4 +16,13 @@ class Customer extends Model
     {
         return $this->hasMany(Package::class);
     }*/
+
+    protected $fillable = [
+        'name',
+        'surname',
+        'code',
+        'email',
+        'phone',
+        'password',
+    ];
 }

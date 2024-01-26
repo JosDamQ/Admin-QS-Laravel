@@ -40,6 +40,11 @@ Route::middleware('auth')->group(function () {
 
     //Customer Routes
     Route::get('/customers', [CustomerController:: class, 'index'])->middleware('verified')->name('customers.index');
+    Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
+    Route::post('/customers', [CustomerController:: class, 'store'])->middleware('verified')->name('customers.store');
+    Route::get('/customers/{customer}/edit', [CustomerController:: class, 'edit'])->middleware('verified')->name('customers.edit');
+    Route::put('/customers/{customer}', [CustomerController:: class, 'update'])->middleware('verified')->name('customers.update');
+    Route::delete('/customers/{customer}', [CustomerController:: class, 'destroy'])->middleware('verified')->name('customers.destroy');
 
     //Package Routes
     Route::get('/packages', [PackageController:: class, 'index'])->middleware('verified')->name('packages.index');

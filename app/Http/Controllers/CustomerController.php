@@ -22,7 +22,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('customers.create');
     }
 
     /**
@@ -30,7 +30,27 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate
+        $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+        ]);
+
+        $data = request()->only('name', 'surname', 'email', 'phone', 'password');
+        //insert into DB
+        Customer::create([
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            'code' => fake()->unique()->bothify('???###'), // 'ABC123
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+            'password' => $data['password'],
+        ]);
+        session()->flash('statusKey', 'Customer was created!');
+        return to_route('customers.index');
     }
 
     /**
@@ -46,7 +66,10 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        $customer = Customer::findOrFail($customer->id);
+        return view('customers.edit', [
+            'customer' => $customer,
+        ]);
     }
 
     /**
@@ -54,7 +77,24 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+            'phone' => 'required'
+        ]);
+
+        $data = request()->only('name', 'surname', 'phone');
+        //insert into DB
+        $customer->update([
+            'name' => $data['name'],
+            'surname' => $data['surname'],
+            //'code' => fake()->unique()->bothify('???###'), // 'ABC123
+            //'email' => $data['email'],
+            'phone' => $data['phone'],
+            //'password' => $data['password'],
+        ]);
+        session()->flash('statusKey', 'Customer was updated!');
+        return to_route('customers.index');
     }
 
     /**
@@ -62,6 +102,8 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        session()->flash('statusKey', 'Customer was deleted!');
+        return to_route('customers.index');
     }
 }
