@@ -10,11 +10,20 @@ class StatusController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('statuses.index', [
-            'statuses' => Status::orderBy('created_at', 'desc')->get(),
-        ]);
+        $statuses = Status::orderBy('created_at', 'desc');
+
+    // Verificar si hay un parámetro de búsqueda
+    if ($request->has('search')) {
+        $searchTerm = $request->input('search');
+        $statuses->where('name', 'like', '%' . $searchTerm . '%');
+    }
+
+    // Obtener los estados paginados
+    $statuses = $statuses->paginate(10);
+
+    return view('statuses.index', compact('statuses'));
     }
 
     /**
@@ -22,7 +31,7 @@ class StatusController extends Controller
      */
     public function create()
     {
-        //
+        return view('statuses.create');
     }
 
     /**

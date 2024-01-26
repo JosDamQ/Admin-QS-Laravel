@@ -7,34 +7,21 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="w-full h-full"> <!-- Elimina la clase max-w-xs -->            
-                        <form method="POST" action="/status" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full h-full">
-                            @csrf
-                            <div class="mb-4">
-                                <label for="name" class="block text-gray-700 text-sm font-bold mb-2">
-                                    Name
-                                </label>
-                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" name="name" type="text" placeholder="Name">
-                                @error('name') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="mb-6">
-                                <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
-                                    Description
-                                </label>
-                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" type="text" placeholder="description">
-                                @error('description') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <x-primary-button>
-                                    Create
-                                </x-primary-button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+            <!-- Contenedor para alinear los elementos -->
+<div class="flex justify-between items-center mb-4">
+    <!-- Botón para crear un nuevo status -->
+    <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crear Nuevo Status</a>
+
+    <!-- Formulario de búsqueda -->
+    <form action="{{ route('status.index') }}" method="GET" class="inline-block">
+        <div class="flex">
+            <input type="text" name="search" placeholder="Buscar por nombre" class="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md sm:text-sm">
+            <button type="submit" class="ml-2 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Buscar</button>
+        </div>
+    </form>
+</div>
+
 
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

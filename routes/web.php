@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     //Status Routes
     Route::get('/status', [StatusController:: class, 'index'])->middleware('verified')->name('status.index');
+    Route::get('/status/create', [StatusController::class, 'create'])->name('status.create');
     Route::post('/status', [StatusController:: class, 'store'])->middleware('verified')->name('status.store');
     Route::get('/status/{id}/edit', [StatusController:: class, 'edit'])->middleware('verified')->name('status.edit');
     Route::put('/status/{status}', [StatusController:: class, 'update'])->middleware('verified')->name('status.update');
