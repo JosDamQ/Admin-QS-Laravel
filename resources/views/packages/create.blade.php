@@ -56,10 +56,11 @@
                             @error('status_id') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
                         
-                        <div class="flex items-center justify-between">
+                        <div class="flex space-x-4">
                             <x-primary-button>
                                 Create
                             </x-primary-button>
+                            <a href="{{ route('packages.index') }}" class="text-white bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-md text-sm font-semibold">Back</a>    
                         </div>
                     </form>
                 </div>

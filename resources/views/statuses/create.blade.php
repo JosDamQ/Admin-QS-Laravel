@@ -25,11 +25,13 @@
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" type="text" placeholder="Description">
                             @error('description') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
-                        <div class="flex items-center justify-between">
+                        <div class="flex space-x-4">
                             <x-primary-button>
                                 Create
                             </x-primary-button>
+                            <a href="{{ route('status.index') }}" class="text-white bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded-md text-sm font-semibold">Back</a>
                         </div>
+                        
                     </form>
                 </div>
             </div>
