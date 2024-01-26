@@ -8,10 +8,8 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <!-- Contenedor para alinear los elementos -->
 <div class="flex justify-between items-center mb-4">
-    <!-- Botón para crear un nuevo status -->
-    <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crear Nuevo Status</a>
+    <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Creaate Status</a>
 
     <!-- Formulario de búsqueda -->
     <form action="{{ route('status.index') }}" method="GET" class="inline-block">

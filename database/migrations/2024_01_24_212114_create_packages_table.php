@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->integer('trackin')->nullable(false);
-            $table->string('weight', 30)->nullable(false);
+            $table->integer('tracking')->nullable(false);
+            $table->string('weight')->nullable(false);
             $table->text('description')->nullable(false);
             $table->unsignedBigInteger('customer_id')->nullable(false);
             $table->unsignedBigInteger('status_id')->nullable(false);

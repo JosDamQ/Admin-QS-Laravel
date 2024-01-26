@@ -12,8 +12,8 @@ class Customer extends Model
 {
     use HasFactory;
 
-    public function packages(): HasMany
+    /*public function packages(): HasMany
     {
         return $this->hasMany(Package::class);
-    }
+    }*/
 }

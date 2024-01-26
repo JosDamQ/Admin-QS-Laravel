@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Package;
 use Illuminate\Http\Request;
+use App\Models\Customer;
+use App\Models\Status;
 
 class PackageController extends Controller
 {
@@ -12,7 +14,9 @@ class PackageController extends Controller
      */
     public function index()
     {
-        //
+        return view('packages.index', [
+            'packages' => Package::orderBy('id', 'desc')->get(),
+        ]);
     }
 
     /**
@@ -20,7 +24,10 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $statuses = Status::all();
+
+        return view('packages.create', compact('customers', 'statuses'));
     }
 
     /**
@@ -28,7 +35,25 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'tracking' => 'required',
+            'weight' => 'required',
+            'description' => 'required',
+            'customer_id' => 'required',
+            'status_id' => 'required',
+        ]);
+
+        $data = request()->only('tracking', 'weight', 'description', 'customer_id', 'status_id');
+        //insert into DB
+        Package::create([
+            'tracking' => $data['tracking'],
+            'weight' => $data['weight'],
+            'description' => $data['description'],
+            'customer_id' => $data['customer_id'],
+            'status_id' => $data['status_id'],
+        ]);
+        session()->flash('statusKey', 'Package was created!');
+        return to_route('packages.index');
     }
 
     /**
@@ -43,8 +68,16 @@ class PackageController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Package $package)
-    {
-        //
+    {   
+
+        $customers = Customer::all();
+        $statuses = Status::all();
+
+        return view('packages.edit', [
+            'package' => $package,
+            'customers' => $customers,
+            'statuses' => $statuses,
+        ]);
     }
 
     /**
@@ -52,7 +85,26 @@ class PackageController extends Controller
      */
     public function update(Request $request, Package $package)
     {
-        //
+        $request->validate([
+            'tracking' => 'required',
+            'weight' => 'required',
+            'description' => 'required',
+            'customer_id' => 'required',
+            'status_id' => 'required',
+        ]);
+
+        $data = request()->only('tracking', 'weight', 'description', 'customer_id', 'status_id');
+
+        $package->update([
+            'tracking' => $data['tracking'],
+            'weight' => $data['weight'],
+            'description' => $data['description'],
+            'customer_id' => $data['customer_id'],
+            'status_id' => $data['status_id'],
+        ]);
+
+        session()->flash('statusKey', 'Package was updated!');
+        return to_route('packages.index');
     }
 
     /**
@@ -60,6 +112,8 @@ class PackageController extends Controller
      */
     public function destroy(Package $package)
     {
-        //
+        $package->delete();
+        session()->flash('statusKey', 'Package was deleted!');
+        return to_route('packages.index');
     }
 }

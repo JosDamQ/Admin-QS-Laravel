@@ -14,13 +14,11 @@ class StatusController extends Controller
     {
         $statuses = Status::orderBy('created_at', 'desc');
 
-    // Verificar si hay un parámetro de búsqueda
     if ($request->has('search')) {
         $searchTerm = $request->input('search');
         $statuses->where('name', 'like', '%' . $searchTerm . '%');
     }
 
-    // Obtener los estados paginados
     $statuses = $statuses->paginate(10);
 
     return view('statuses.index', compact('statuses'));
