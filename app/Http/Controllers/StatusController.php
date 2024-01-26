@@ -19,7 +19,7 @@ class StatusController extends Controller
         $statuses->where('name', 'like', '%' . $searchTerm . '%');
     }
 
-    $statuses = $statuses->paginate(10);
+    $statuses = $statuses->paginate(100);
 
     return view('statuses.index', compact('statuses'));
     }
