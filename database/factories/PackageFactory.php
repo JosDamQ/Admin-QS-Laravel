@@ -17,8 +17,8 @@ class PackageFactory extends Factory
     public function definition(): array
     {
         return [
-            'trackin' => fake()->unique()->randomNumber(),
-            'weight' => fake()->text(),
+            'tracking' => fake()->unique()->randomNumber(),
+            'weight' => fake()->unique()->randomNumber(),
             'description' => fake()->text(),
             'customer_id' => \App\Models\Customer::all()->random()->id,
             'status_id' => \App\Models\Status::all()->random()->id,

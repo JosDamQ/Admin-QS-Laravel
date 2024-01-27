@@ -25,6 +25,13 @@
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" type="text" placeholder="Description">
                             @error('description') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
+                        <div class="mb-6">
+                            <label for="order" class="block text-gray-700 text-sm font-bold mb-2">
+                                Order
+                            </label>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="order" name="order" type="text" placeholder="Order">
+                            @error('order') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
+                        </div>
                         <div class="flex space-x-4">
                             <x-primary-button>
                                 Create
