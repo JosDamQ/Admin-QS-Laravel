@@ -59,10 +59,12 @@
                                             {{ $package->description }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $package->customer_id }}
+                                            
+                                            {{ $package->customer->name }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $package->status_id }}
+                                            
+                                            {{ $package->status->name }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $package->created_at }}
