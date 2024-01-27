@@ -37,8 +37,8 @@ class PackageController extends Controller
     {
         $request->validate([
             'tracking' => 'required|unique:packages',
-            'weight' => 'required',
-            'description' => 'required',
+            'weight' => 'required|integer',
+            'description' => 'required|string',
             'customer_id' => 'required',
             'status_id' => 'required',
         ]);
@@ -87,8 +87,8 @@ class PackageController extends Controller
     {
         $request->validate([
             'tracking' => 'required|unique:packages,tracking,' . $package->id . ',id',
-            'weight' => 'required',
-            'description' => 'required',
+            'weight' => 'required|integer',
+            'description' => 'required|string',
             'customer_id' => 'required',
             'status_id' => 'required',
         ]);

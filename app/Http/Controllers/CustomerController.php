@@ -32,8 +32,8 @@ class CustomerController extends Controller
     {
         //validate
         $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
+            'name' => 'required|string',
+            'surname' => 'required|string',
             'email' => 'required|email|unique:customers',
             'phone' => 'required|min:8',
             'password' => 'required',
@@ -78,8 +78,8 @@ class CustomerController extends Controller
     public function update(Request $request, Customer $customer)
     {
         $request->validate([
-            'name' => 'required',
-            'surname' => 'required',
+            'name' => 'required|string',
+            'surname' => 'required|string',
             'phone' => 'required|min:8'
         ]);
 
