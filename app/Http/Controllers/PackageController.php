@@ -12,12 +12,27 @@ class PackageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    /*public function index(Request $request)
     {
-        return view('packages.index', [
-            'packages' => Package::orderBy('id', 'desc')->get(),
-        ]);
+        $packages = Package::orderBy('id', 'desc')->paginate(100);
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $packages->where('tracking', 'like', '%' . $searchTerm . '%');
+        }
+
+        //$packages = $query->get();
+
+        return view('packages.index', compact('packages'));
+    }*/
+
+    public function index(Request $request)
+    {
+        $packages = Package::orderBy('id', 'desc')->paginate(100);
+    
+        return view('packages.index', compact('packages'));
     }
+
 
     /**
      * Show the form for creating a new resource.
