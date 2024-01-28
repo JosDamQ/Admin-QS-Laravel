@@ -110,8 +110,12 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        $customer->delete();
-        session()->flash('statusKey', 'Customer was deleted!');
-        return to_route('customers.index');
+        if($customer->packages->count() > 0){
+            return to_route('customers.index');
+        }else{
+            $customer->delete();
+            session()->flash('statusKey', 'Customer was deleted!');
+            return to_route('customers.index');
+        }
     }
 }

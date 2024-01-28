@@ -13,4 +13,9 @@ class Status extends Model
     protected $guarded = ['id'];
 
     protected $fillable = ['name', 'description', 'order'];
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
+    }
 }

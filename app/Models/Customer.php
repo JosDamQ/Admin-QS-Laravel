@@ -25,4 +25,9 @@ class Customer extends Model
         'phone',
         'password',
     ];
+
+    public function packages()
+    {
+        return $this->hasMany(Package::class);
+    }
 }
