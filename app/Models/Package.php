@@ -11,6 +11,7 @@ class Package extends Model
 
     use HasFactory;
 
+    //Definimos las relaciones de la tabla Package
     public function customer(){
         return $this->belongsTo(Customer::class);
     }
