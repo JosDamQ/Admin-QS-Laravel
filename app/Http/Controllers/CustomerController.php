@@ -17,7 +17,11 @@ class CustomerController extends Controller
 
         if($request->has('search')){
             $searchTerm = $request->input('search');
-            $customers->where('code', 'like', '%' . $searchTerm . '%');
+            $customers->where(function($query) use ($searchTerm){
+                $query->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('code', 'like', '%' . $searchTerm . '%');
+            });
+            //$customers->where('code', 'like', '%' . $searchTerm . '%');
         }
 
         $customers = $customers->paginate(100);

@@ -32,7 +32,11 @@ class PackageController extends Controller
 
         if($request->has('search')){
             $searchTerm = $request->input('search');
-            $packages->where('tracking', 'like', '%' . $searchTerm . '%');
+            $packages->where(function($query) use ($searchTerm){
+                $query->where('tracking', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('customer_name', 'like', '%' . $searchTerm . '%');
+            });
+            //}'tracking', 'like', '%' . $searchTerm . '%');
         }
 
         $packages = $packages->get();

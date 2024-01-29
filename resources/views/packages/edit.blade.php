@@ -38,7 +38,7 @@
                             </label>
                             <select name="customer_id" id="customer_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 @foreach ($customers as $customer)
-                                    <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                    <option value="{{ $customer->id }}" {{ $package->customer->id == $customer->id ? 'selected' : ''}}>{{ $customer->name }}</option>
                                 @endforeach
                             </select>
                             @error('customer_id') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
@@ -50,7 +50,7 @@
                             </label>
                             <select name="status_id" id="status_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                 @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}">{{ $status->name }}</option>
+                                    <option value="{{ $status->id }}" {{ $package->status->id == $status->id ? 'selected' : ''}}>{{ $status->name }}</option>
                                 @endforeach
                             </select>
                             @error('status_id') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
