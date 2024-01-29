@@ -28,7 +28,14 @@ class PackageController extends Controller
 
     public function index(Request $request)
     {
-        $packages = Package::orderBy('id', 'desc')->paginate(100);
+        $packages = Package::query();
+
+        if($request->has('search')){
+            $searchTerm = $request->input('search');
+            $packages->where('tracking', 'like', '%' . $searchTerm . '%');
+        }
+
+        $packages = $packages->get();
     
         return view('packages.index', compact('packages'));
     }
