@@ -58,7 +58,7 @@ class PackageController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tracking' => 'required|unique:packages',
+            'tracking' => 'required|integer|unique:packages',
             'weight' => 'required|integer',
             'description' => 'required|string',
             'customer_id' => 'required',
@@ -108,7 +108,7 @@ class PackageController extends Controller
     public function update(Request $request, Package $package)
     {
         $request->validate([
-            'tracking' => 'required|unique:packages,tracking,' . $package->id . ',id',
+            'tracking' => 'required|integer|unique:packages,tracking,' . $package->id . ',id',
             'weight' => 'required|integer',
             'description' => 'required|string',
             'customer_id' => 'required',

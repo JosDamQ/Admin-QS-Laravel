@@ -16,7 +16,7 @@
                                 Tracking
                             </label>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tracking" name="tracking" type="text" placeholder="Tracking">
-                            @error(' tracking') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
+                            @error('tracking') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-6">
                             <label for="weight" class="block text-gray-700 text-sm font-bold mb-2">
