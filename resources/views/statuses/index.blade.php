@@ -10,13 +10,13 @@
 
             <div class="flex justify-between items-center mb-4">
                 <!-- Botón para crear un nuevo status -->
-                <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crear Nuevo Status</a>
+                <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Status</a>
                 <div >
                     <!-- Formulario de busqueda -->
                     <form action="{{ route('status.index') }}" method="GET" class="inline-block">
                         <div class="flex">
-                            <input type="text" name="search" placeholder="Buscar por nombre" class="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md sm:text-sm">
-                            <button type="submit" class="ml-2 m-0 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Buscar</button>
+                            <input type="text" name="search" placeholder="Search by name" class="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md sm:text-sm">
+                            <button type="submit" class="ml-2 m-0 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Search</button>
                         </div>
                     </form>
                     <!-- Boton para regresar a ver todos los Status -->
@@ -25,6 +25,8 @@
                     </button>
                 </div>
             </div>
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
         <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -101,6 +103,8 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        </div>
         </div>
     </div>
 </x-app-layout>

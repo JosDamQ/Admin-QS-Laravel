@@ -9,13 +9,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-4">
                 <!-- Botón para crear un nuevo status -->
-                <a href="{{ route('customers.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crear Nuevo Status</a>
+                <a href="{{ route('customers.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Customer</a>
                 <div >
                     <!-- Formulario de busqueda -->
                     <form action="{{ route('customers.index') }}" method="GET" class="inline-block">
                         <div class="flex">
-                            <input type="text" name="search" placeholder="Search by name or code" class="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md sm:text-sm sm:w-64">
-                            <button type="submit" class="ml-2 m-0 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Buscar</button>
+                            <input type="text" name="search" placeholder="Searcha by name or code" class="border-gray-300 focus:ring-blue-500 focus:border-blue-500 block w-full rounded-md sm:text-sm sm:w-64">
+                            <button type="submit" class="ml-2 m-0 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Search</button>
                         </div>
                     </form>
                     <!-- Boton para regresar a ver todos los Status -->

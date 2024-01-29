@@ -9,31 +9,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form method="POST" action="{{ route('packages.update', $package)}}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <form method="POST" action="{{ route('packages.update', $package)}}" class="bg-slate-700 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                         @csrf @method('PUT')
                         <div class="mb-4">
-                            <label for="tracking" class="block text-gray-700 text-sm font-bold mb-2">
+                            <label for="tracking" class="block text-white-700 text-sm font-bold mb-2">
                                 Tracking
                             </label>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="tracking" name="tracking" type="text" placeholder="Tracking" value="{{ $package->tracking}}">
                             @error(' tracking') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-6">
-                            <label for="weight" class="block text-gray-700 text-sm font-bold mb-2">
+                            <label for="weight" class="block text-white-700 text-sm font-bold mb-2">
                                 Weight
                             </label>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="weight" name="weight" type="text" placeholder="Weight" value="{{ $package->weight}}">
                             @error('weight') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-6">
-                            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">
+                            <label for="description" class="block text-white-700 text-sm font-bold mb-2">
                                 Description
                             </label>
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="description" name="description" type="text" placeholder="Description" value="{{ $package->description}}">
                             @error('description') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
                         <div class="mb-6">
-                            <label for="customer_id" class="block text-gray-700 text-sm font-bold mb-2">
+                            <label for="customer_id" class="block text-white-700 text-sm font-bold mb-2">
                                 Customer
                             </label>
                             <select name="customer_id" id="customer_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -45,7 +45,7 @@
                         </div>
                         
                         <div class="mb-6">
-                            <label for="status_id" class="block text-gray-700 text-sm font-bold mb-2">
+                            <label for="status_id" class="block text-white-700 text-sm font-bold mb-2">
                                 Status
                             </label>
                             <select name="status_id" id="status_id" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
