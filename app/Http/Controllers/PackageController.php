@@ -12,20 +12,6 @@ class PackageController extends Controller
     /**
      * Display a listing of the resource.
      */
-    /*public function index(Request $request)
-    {
-        $packages = Package::orderBy('id', 'desc')->paginate(100);
-
-        if ($request->has('search')) {
-            $searchTerm = $request->input('search');
-            $packages->where('tracking', 'like', '%' . $searchTerm . '%');
-        }
-
-        //$packages = $query->get();
-
-        return view('packages.index', compact('packages'));
-    }*/
-
     public function index(Request $request)
     {
         $packages = Package::query();
@@ -34,7 +20,9 @@ class PackageController extends Controller
             $searchTerm = $request->input('search');
             $packages->where(function($query) use ($searchTerm){
                 $query->where('tracking', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('customer_name', 'like', '%' . $searchTerm . '%');
+                    ->orWhereHas('customer', function($query) use ($searchTerm){
+                        $query->where('name', 'like', '%' . $searchTerm . '%');
+                    });
             });
             //}'tracking', 'like', '%' . $searchTerm . '%');
         }
