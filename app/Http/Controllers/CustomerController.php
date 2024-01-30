@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CustomerController extends Controller
 {
@@ -53,14 +55,16 @@ class CustomerController extends Controller
 
         $data = request()->only('name', 'surname', 'email', 'phone', 'password');
         //insert into DB
-        Customer::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'code' => fake()->unique()->bothify('???###'), // 'ABC123
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'password' => $data['password'],
-        ]);
+        $customer = new Customer();
+        $customer->name = $request->input('name');
+        $customer->surname = $request->input('surname');
+        $customer->code = fake()->unique()->bothify('???###'); // 'ABC123
+        //$customer->code = Str::random(6);
+        $customer->email = $request->input('email');
+        $customer->phone = $request->input('phone');
+        $customer->password = Hash::make($request->input('password'));
+        $customer->save();
+
         session()->flash('statusKey', 'Customer was created!');
         return to_route('customers.index');
     }

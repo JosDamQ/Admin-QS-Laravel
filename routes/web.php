@@ -6,6 +6,7 @@ use App\Models\Status;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/packages/{package}/edit', [PackageController:: class, 'edit'])->middleware('verified')->name('packages.edit');
     Route::put('/packages/{package}', [PackageController:: class, 'update'])->middleware('verified')->name('packages.update');
     Route::delete('/packages/{package}', [PackageController:: class, 'destroy'])->middleware('verified')->name('packages.destroy');
+
+    //Rutas para Users
+    Route::get('/users', [UserController:: class, 'index'])->middleware('verified')->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->middleware('verified')->name('users.create');
+    Route::post('/users', [UserController:: class, 'store'])->middleware('verified')->name('users.store');
+
+    //Ruta para error
+    Route::fallback(function () {
+        return redirect('/status');
+    });
 
 });
 
