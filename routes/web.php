@@ -59,6 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController:: class, 'index'])->middleware('verified')->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->middleware('verified')->name('users.create');
     Route::post('/users', [UserController:: class, 'store'])->middleware('verified')->name('users.store');
+    Route::get('/users/{user}/edit', [UserController:: class, 'edit'])->middleware('verified')->name('users.edit');
+    Route::put('/users/{user}', [UserController:: class, 'update'])->middleware('verified')->name('users.update');
+    Route::delete('/users/{user}', [UserController:: class, 'destroy'])->middleware('verified')->name('users.destroy');
 
     //Ruta para error
     Route::fallback(function () {

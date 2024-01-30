@@ -29,27 +29,6 @@ class UserController extends Controller
     }
 
     // Método para guardar un nuevo usuario
-    /*public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-        ]);
-    
-        // Crear un nuevo usuario
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->email_verified_at = now(); // Se puede marcar como verificado manualmente aquí si se desea
-        $user->password = Hash::make($request->input('password'));
-    
-        // Guardar el usuario en la base de datos
-        $user->save();
-
-        session()->flash('statusKey', 'User was created!');
-        return to_route('users.index');
-    }*/
 
     public function store(Request $request)
     {
@@ -93,18 +72,35 @@ class UserController extends Controller
     // Método para mostrar el formulario de edición de usuario
     public function edit($id)
     {
-        // TODO: Implementar la lógica para mostrar el formulario de edición de usuario
+        return view('users.edit', [
+            'user' => User::findOrFail($id),
+        ]);
     }
 
     // Método para actualizar un usuario existente
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        // TODO: Implementar la lógica para actualizar un usuario existente
+        $request -> validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $user->id . ',id',
+        ]);
+
+        $data = request()->only('name', 'email');
+
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+        ]);
+
+        session()->flash('statusKey', 'User was updated!');
+        return to_route('users.index');
     }
 
     // Método para eliminar un usuario
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        // TODO: Implementar la lógica para eliminar un usuario
+        $user->delete();
+        session()->flash('statusKey', 'User was deleted!');
+        return to_route('users.index');
     }
 }

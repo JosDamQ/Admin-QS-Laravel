@@ -56,7 +56,28 @@
                                 <td class="px-6 py-4">
                                     {{ $user->updated_at }}
                                 </td>
-                                
+                                <td class="px-6 py-4">
+                                    <x-dropdown>
+                                        <x-slot name="trigger">
+                                            <button class="text-sm btn-primary">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                                </svg>
+                                            </button>
+                                        </x-slot>
+                                        <x-slot name="content">
+                                            <x-dropdown-link :href="route('users.edit', $user)">
+                                                Edit
+                                            </x-dropdown-link>
+                                            <form method="POST" action="{{ route('users.destroy', $user) }}">
+                                                @csrf @method('DELETE')
+                                                <x-dropdown-link :href="route('users.destroy', $user)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                    Delete
+                                                </x-dropdown-link>
+                                            </form>
+                                        </x-slot>
+                                    </x-dropdown>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
