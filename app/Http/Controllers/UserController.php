@@ -59,15 +59,25 @@ class UserController extends Controller
             //'password' => 'required|string|min:8',
         ]);
 
+        $password = Str::random(8);
+
         // Crear un nuevo usuario
-        $user = User::create([
+        /*$user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'password' => Str::random(8),
-        ]);
+            'password' => $password,
+        ]);*/
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user-> password = $password;
 
         // Enviar correo electrónico de verificación
-        $user->sendEmailVerificationNotification();
+        Mail::to($user->email)->send(new PasswordAssignedNotification($user, $password));
+
+        $user->password = Hash::make($password);
+        $user->save();
 
         session()->flash('statusKey', 'User was created!');
 
