@@ -14,7 +14,7 @@ class PackageController extends Controller
      */
     public function index(Request $request)
     {
-        $packages = Package::query();
+        $packages = Package::query()->orderBy('created_at', 'desc');
 
         if($request->has('search')){
             $searchTerm = $request->input('search');

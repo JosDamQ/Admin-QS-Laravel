@@ -41,15 +41,19 @@ class StatusController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'required | string',
-            'order' => 'required|integer',
+            //'order' => 'required|integer',
         ]);
 
-        $data = request()->only('name', 'description', 'order');
+        $data = request()->only('name', 'description');
+
+       //$data.order = 
         //insert into DB
         Status::create([
             'name' => $data['name'],
             'description' => $data['description'],
-            'order' => $data['order'],
+            //'order' => $data['order'],
+            'order' => Status::count() + 1,
+            
         ]);
         session()->flash('statusKey', 'Status was created!');
         return to_route('status.index');
@@ -82,15 +86,15 @@ class StatusController extends Controller
         $request->validate([
             'name' => 'required|string',
             'description' => 'required | string',
-            'order' => 'required|integer',
+            //'order' => 'required|integer',
         ]);
 
-        $data = request()->only('name', 'description', 'order');
+        $data = request()->only('name', 'description');
 
         $status->update([
             'name' => $data['name'],
             'description' => $data['description'],
-            'order' => $data['order'],
+            //'order' => $data['order'],
         ]);
         //session()->flash('statusKey', 'Status was updated!');
         return to_route('status.index')->with('statusKey', 'Status was updated!');
