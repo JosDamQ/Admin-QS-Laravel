@@ -23,8 +23,7 @@
         <tr>
             <td style="background-color: #f8f9fa; padding: 20px;">
                 <p>If you have any questions or concerns, please feel free to contact us.</p>
-                <p>Thank you,</p>
-                <p>Your Company Name</p>
+                <p style="text-align: center;"><a href="{{ config('app.url') }}" style="background-color: #007bff; color: #fff; padding: 10px 20px; text-decoration: none;">Visit Our Website</a></p>
             </td>
         </tr>
     </table>
