@@ -105,13 +105,9 @@ class StatusController extends Controller
      */
     public function destroy(Status $status)
     {
-        //Elimina el registro de la base de datos
-        /*$status->delete();
-        session()->flash('statusKey', 'Status was deleted!');
-        return to_route('status.index');*/
-
          if ($status->packages->count() > 0) {
-             return to_route('status.index');
+            session()->flash('statusKey', 'error:Status has packages, cannot be deleted!');
+            return to_route('status.index');
          } else {
              //Elimina el registro de la base de datos
              $status->delete();

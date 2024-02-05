@@ -1,7 +1,13 @@
 @if(session('statusKey'))
-    <div class="bg-green-500 text-green-100 text-center text-lg font-bold p-2">
-        {{ session('statusKey') }}
-    </div>
+    @if(Str::startsWith(session('statusKey'), 'error:'))
+        <div class="bg-red-500 text-red-100 text-center text-lg font-bold p-2">
+            {{ Str::after(session('statusKey'), 'error:') }}
+        </div>
+    @else
+        <div class="bg-green-500 text-green-100 text-center text-lg font-bold p-2">
+            {{ session('statusKey') }}
+        </div>
+    @endif
 @endif
 
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">

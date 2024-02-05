@@ -119,6 +119,7 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         if($customer->packages->count() > 0){
+            session()->flash('statusKey', 'error:Customer has packages and cannot be deleted!');
             return to_route('customers.index');
         }else{
             $customer->delete();
