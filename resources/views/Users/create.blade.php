@@ -25,6 +25,16 @@
                             <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="text" placeholder="Email">
                             @error('email') <span style="color: rgb(155, 22, 22);">{{ $message }}</span> @enderror
                         </div>
+                        <div class="mb-6">
+                            <label for="role" class="block text-white-700 text-sm font-bold mb-2">
+                                Role
+                            </label>
+                            <select name="role" id="role" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @foreach($roles as $id => $role)
+                                <option value="{{ $id }}" {{ (isset($user) && $user->roles->pluck('id')->contains($id)) ? 'selected' : '' }}>{{ $role }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="flex space-x-4">
                             <x-primary-button>
                                 Create

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordAssignedNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
 
 class UserController extends Controller
@@ -26,7 +27,9 @@ class UserController extends Controller
     // Método para mostrar el formulario de creación de usuario
     public function create()
     {
-        return view('users.create');
+        //return view('users.create');
+        $roles = Role::pluck('name', 'id'); // Obtener todos los roles como una lista de opciones
+        return view('users.create', compact('roles'));
     }
 
     // Método para guardar un nuevo usuario
@@ -41,17 +44,14 @@ class UserController extends Controller
 
         $password = Str::random(8);
 
-        // Crear un nuevo usuario
-        /*$user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => $password,
-        ]);*/
-
         $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user-> password = $password;
+        //$user->roles()->assignRole($request->input('role'));
+
+        $role = Role::findById($request->input('role')); // Obtener el rol por ID
+        $user->assignRole($role);
 
         // Enviar correo electrónico de verificación
         Mail::to($user->email)->send(new PasswordAssignedNotification($user, $password));
@@ -73,9 +73,9 @@ class UserController extends Controller
     // Método para mostrar el formulario de edición de usuario
     public function edit($id)
     {
-        return view('users.edit', [
-            'user' => User::findOrFail($id),
-        ]);
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name', 'id'); // Obtener todos los roles como una lista de opciones
+        return view('users.edit', compact('user', 'roles'));
     }
 
     // Método para actualizar un usuario existente
@@ -92,6 +92,14 @@ class UserController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
         ]);
+
+        if ($request->has('role')) {
+            $role = Role::findById($request->input('role'));
+            if ($role) {
+                // Asignar el nuevo rol al usuario
+                $user->syncRoles([$role]);
+            }
+        }
 
         session()->flash('statusKey', 'User was updated!');
         return to_route('users.index');
