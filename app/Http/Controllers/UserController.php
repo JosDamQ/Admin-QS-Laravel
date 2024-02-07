@@ -86,6 +86,11 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email,' . $user->id . ',id',
         ]);
 
+            if($user->hasRole('master')){
+                session()->flash('statusKey', 'error:User was not updated, because is master!');
+                return back();
+            }
+
         $data = request()->only('name', 'email');
 
         $user->update([
