@@ -10,8 +10,10 @@
 
             <div class="flex justify-between items-center mb-4">
                 <!-- Botón para crear un nuevo status -->
-                <a href="{{ route('users.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete User</a>
-            </div>
+                @can('users.create')
+                    <a href="{{ route('users.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete User</a>
+                @endcan
+                </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
         <div class="relative overflow-x-auto">
@@ -66,15 +68,19 @@
                                             </button>
                                         </x-slot>
                                         <x-slot name="content">
-                                            <x-dropdown-link :href="route('users.edit', $user)">
-                                                Edit
-                                            </x-dropdown-link>
-                                            <form method="POST" action="{{ route('users.destroy', $user) }}">
-                                                @csrf @method('DELETE')
-                                                <x-dropdown-link :href="route('users.destroy', $user)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                    Delete
+                                            @can('users.edit')
+                                                <x-dropdown-link :href="route('users.edit', $user)">
+                                                    Edit
                                                 </x-dropdown-link>
-                                            </form>
+                                            @endcan
+                                            @can('users.destroy')
+                                                <form method="POST" action="{{ route('users.destroy', $user) }}">
+                                                    @csrf @method('DELETE')
+                                                    <x-dropdown-link :href="route('users.destroy', $user)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                        Delete
+                                                    </x-dropdown-link>
+                                                </form>
+                                            @endcan
                                         </x-slot>
                                     </x-dropdown>
                                 </td>
