@@ -7,7 +7,7 @@ use App\Http\Controllers\StatusController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\UserController;
-use Spatie\Permission\Models\Role;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,12 +57,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/packages/{package}', [PackageController:: class, 'destroy'])->middleware('verified')->name('packages.destroy');
 
     //Rutas para Users
-    Route::get('/users', [UserController:: class, 'index'])->middleware(['verified', 'role:master'])->name('users.index');
-    Route::get('/users/create', [UserController::class, 'create'])->middleware(['verified', 'role:master'])->name('users.create');
-    Route::post('/users', [UserController:: class, 'store'])->middleware(['verified', 'role:master'])->name('users.store');
-    Route::get('/users/{user}/edit', [UserController:: class, 'edit'])->middleware(['verified', 'role:master'])->name('users.edit');
-    Route::put('/users/{user}', [UserController:: class, 'update'])->middleware(['verified', 'role:master'])->name('users.update');
-    Route::delete('/users/{user}', [UserController:: class, 'destroy'])->middleware(['verified', 'role:master'])->name('users.destroy');
+    Route::get('/users', [UserController:: class, 'index'])->middleware(['verified'/*, 'role:master'*/])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->middleware(['verified'/*, 'role:master'*/])->name('users.create');
+    Route::post('/users', [UserController:: class, 'store'])->middleware(['verified'/*, 'role:master'*/])->name('users.store');
+    Route::get('/users/{user}/edit', [UserController:: class, 'edit'])->middleware(['verified'/*, 'role:master'*/])->name('users.edit');
+    Route::put('/users/{user}', [UserController:: class, 'update'])->middleware(['verified'/*, 'role:master'*/])->name('users.update');
+    Route::delete('/users/{user}', [UserController:: class, 'destroy'])->middleware(['verified'/*, 'role:master'*/])->name('users.destroy');
+
+    //Rutas para Roles
+    Route::get('/roles', [RoleController:: class, 'index'])->middleware(['verified'])->name('roles.index');
+    Route::get('/roles/create', [RoleController::class, 'create'])->middleware(['verified'])->name('roles.create');
+    Route::post('/roles', [RoleController:: class, 'store'])->middleware(['verified'])->name('roles.store');
+
 
     //Ruta para error
     Route::fallback(function () {
