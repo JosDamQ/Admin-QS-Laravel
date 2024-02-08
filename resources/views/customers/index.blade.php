@@ -9,7 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-4">
                 <!-- Botón para crear un nuevo status -->
-                <a href="{{ route('customers.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Customer</a>
+                @can('customers.create')
+                    <a href="{{ route('customers.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Customer</a>
+                @endcan
                 <div >
                     <!-- Formulario de busqueda -->
                     <form action="{{ route('customers.index') }}" method="GET" class="inline-block">
@@ -93,16 +95,19 @@
                                                     </button>
                                                 </x-slot>
                                                 <x-slot name="content">
-                                                    <x-dropdown-link :href="route('customers.edit', $customer)">
-                                                        Edit
-                                                    </x-dropdown-link>
-                                                    <form method="POST" action="{{ route('customers.destroy', $customer) }}">
-                                                        @csrf @method('DELETE')
-                                                        <x-dropdown-link :href="route('customers.destroy', $customer)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                            Delete
+                                                    @can('customers.edit')
+                                                        <x-dropdown-link :href="route('customers.edit', $customer)">
+                                                            Edit
                                                         </x-dropdown-link>
-                                                    </form>
-                                                    
+                                                    @endcan
+                                                    @can('customers.destroy')
+                                                        <form method="POST" action="{{ route('customers.destroy', $customer) }}">
+                                                            @csrf @method('DELETE')
+                                                            <x-dropdown-link :href="route('customers.destroy', $customer)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                                Delete
+                                                            </x-dropdown-link>
+                                                        </form>
+                                                    @endcan
                                                 </x-slot>
                                             </x-dropdown>
                                         </td>
