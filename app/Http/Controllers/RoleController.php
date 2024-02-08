@@ -33,7 +33,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:roles,name',
             'permissions' => 'required|array',
         ]);
 
@@ -53,7 +53,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Roles $roles)
+    public function show(Role $role)
     {
         //
     }
@@ -61,23 +61,38 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Roles $roles)
+    public function edit(Role $role)
     {
-        //
+        $permissions = Permission::all();
+        return view('roles.edit', compact('role', 'permissions'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Roles $roles)
+    public function update(Request $request, Role $role)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|unique:roles,name,' . $role->id ,
+            'permissions' => 'nullable|array', 
+        ]);
+    
+        // Actualizar el nombre del rol
+        $role->name = $request->input('name');
+        $role->save();
+    
+        // Actualizar los permisos del rol
+        $permissionsRole = Permission::find($request->input('permissions'));
+        $role->syncPermissions($permissionsRole);
+    
+        session()->flash('statusKey', 'Role was updated successfully!');
+        return redirect()->route('roles.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Roles $roles)
+    public function destroy(Role $role)
     {
         //
     }

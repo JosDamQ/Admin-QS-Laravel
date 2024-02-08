@@ -68,6 +68,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/roles', [RoleController:: class, 'index'])->middleware(['verified'])->name('roles.index');
     Route::get('/roles/create', [RoleController::class, 'create'])->middleware(['verified'])->name('roles.create');
     Route::post('/roles', [RoleController:: class, 'store'])->middleware(['verified'])->name('roles.store');
+    Route::get('/roles/{role}/edit', [RoleController:: class, 'edit'])->middleware(['verified'])->name('roles.edit');
+    Route::put('/roles/{role}', [RoleController:: class, 'update'])->middleware(['verified'])->name('roles.update');
+    Route::delete('/roles/{role}', [RoleController:: class, 'destroy'])->middleware(['verified'])->name('roles.destroy');
 
 
     //Ruta para error

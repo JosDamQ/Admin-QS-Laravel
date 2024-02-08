@@ -60,16 +60,15 @@
                                             </button>
                                         </x-slot>
                                         <x-slot name="content">
-                                            {{--  <x-dropdown-link :href="route('status.edit', $status)">
-                                                Edit 
+                                            <x-dropdown-link :href="route('roles.edit', $role)">
+                                                Edit
                                             </x-dropdown-link>
-                                            <form method="POST" action="{{ route('status.destroy', $status)}}">
+                                            <form method="POST" action="{{ route('roles.destroy', $role) }}">
                                                 @csrf @method('DELETE')
-                                                <x-dropdown-link :href="route('status.destroy', $status)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                    Delete 
+                                                <x-dropdown-link :href="route('roles.destroy', $role)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                    Delete
                                                 </x-dropdown-link>
-                                            </form>                                            --}}
-                                            
+                                            </form>
                                         </x-slot>
                                     </x-dropdown>
                                 </td>
