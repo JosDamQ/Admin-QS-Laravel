@@ -8,7 +8,9 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-4">
-                <a href="{{ route('packages.create')}}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mb-4 inline-block">Create Packages</a>
+                @can(package.create)
+                    <a href="{{ route('packages.create')}}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md mb-4 inline-block">Create Packages</a>
+                @endcan
                 <div class="display: flex">
                     <form action="{{ route('packages.index') }}" method="GET" class="mb-4">
                         <div class="flex">
@@ -96,9 +98,12 @@
                                                     </button>
                                                 </x-slot>
                                                 <x-slot name="content">
-                                                    <x-dropdown-link :href="route('packages.edit', $package)">
-                                                        Edit 
-                                                    </x-dropdown-link>
+                                                    @can('packages.edit')
+                                                        <x-dropdown-link :href="route('packages.edit', $package)">
+                                                            Edit 
+                                                        </x-dropdown-link>
+                                                    @endcan
+                                                    @can('packages.destroy')
                                                     <form method="POST" action="{{ route('packages.destroy', $package)}}">
                                                         @csrf @method('DELETE')
                                                         <x-dropdown-link :href="route('packages.destroy', $package)" onclick="event.preventDefault(); this.closest('form').submit()">
