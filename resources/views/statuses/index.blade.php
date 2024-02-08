@@ -10,7 +10,9 @@
 
             <div class="flex justify-between items-center mb-4">
                 <!-- Botón para crear un nuevo status -->
-                <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Status</a>
+                @can('status.create')
+                    <a href="{{ route('status.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Status</a>
+                @endcan
                 <div >
                     <!-- Formulario de busqueda -->
                     <form action="{{ route('status.index') }}" method="GET" class="inline-block">
@@ -85,15 +87,19 @@
                                             </button>
                                         </x-slot>
                                         <x-slot name="content">
-                                            <x-dropdown-link :href="route('status.edit', $status)">
-                                                Edit 
-                                            </x-dropdown-link>
-                                            <form method="POST" action="{{ route('status.destroy', $status)}}">
-                                                @csrf @method('DELETE')
-                                                <x-dropdown-link :href="route('status.destroy', $status)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                    Delete 
+                                            @can('status.edit')
+                                                <x-dropdown-link :href="route('status.edit', $status)">
+                                                    Edit 
                                                 </x-dropdown-link>
-                                            </form>                                          
+                                            @endcan
+                                            @can('status.destroy')
+                                                <form method="POST" action="{{ route('status.destroy', $status)}}">
+                                                    @csrf @method('DELETE')
+                                                    <x-dropdown-link :href="route('status.destroy', $status)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                        Delete 
+                                                    </x-dropdown-link>
+                                                </form>
+                                            @endcan                                          
                                             
                                         </x-slot>
                                     </x-dropdown>
