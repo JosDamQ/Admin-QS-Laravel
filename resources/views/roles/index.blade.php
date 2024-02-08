@@ -10,8 +10,10 @@
 
             <div class="flex justify-between items-center mb-4">
                 <!-- Botón para crear un nuevo role -->
-                <a href="{{ route('roles.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Role</a>
-            </div>
+                @can('roles.create')
+                    <a href="{{ route('roles.create') }}" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Crete Role</a>
+                @endcan
+                </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
         <div class="relative overflow-x-auto">
@@ -60,15 +62,19 @@
                                             </button>
                                         </x-slot>
                                         <x-slot name="content">
-                                            <x-dropdown-link :href="route('roles.edit', $role)">
-                                                Edit
-                                            </x-dropdown-link>
-                                            <form method="POST" action="{{ route('roles.destroy', $role) }}">
-                                                @csrf @method('DELETE')
-                                                <x-dropdown-link :href="route('roles.destroy', $role)" onclick="event.preventDefault(); this.closest('form').submit();">
-                                                    Delete
+                                            @can('roles.edit')
+                                                <x-dropdown-link :href="route('roles.edit', $role)">
+                                                    Edit
                                                 </x-dropdown-link>
-                                            </form>
+                                            @endcan
+                                            @can('roles.destroy')
+                                                <form method="POST" action="{{ route('roles.destroy', $role) }}">
+                                                    @csrf @method('DELETE')
+                                                    <x-dropdown-link :href="route('roles.destroy', $role)" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                        Delete
+                                                    </x-dropdown-link>
+                                                </form>
+                                            @endcan
                                         </x-slot>
                                     </x-dropdown>
                                 </td>
