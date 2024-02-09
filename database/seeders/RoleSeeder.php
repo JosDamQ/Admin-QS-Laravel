@@ -53,7 +53,7 @@ class RoleSeeder extends Seeder
             'users.store',
             'users.edit',
             'users.update',
-            'users.destroy',
+            'users.destroy'
         ];
 
         //Definir permisos para las rutas de Roles
@@ -63,7 +63,7 @@ class RoleSeeder extends Seeder
             'roles.store',
             'roles.edit',
             'roles.update',
-            //'roles.destroy',
+            'roles.destroy'
         ];
 
         // Insertar permisos en la base de datos
@@ -77,13 +77,11 @@ class RoleSeeder extends Seeder
             $rolePermissions
         )));
 
-        //Crear roles
-        $roleMastes = Role::create(['name' => 'master']);
-        $roleAdmin = Role::create(['name' => 'admin']);
-        $rolPrueba = Role::create(['name' => 'prueba']);
+        // Crear roles
+        $master = Role::create(['name' => 'master']);
 
-        //Asignar permisos a los roles
-        $roleMastes->givePermissionTo(array_merge(
+        // Asignar permisos a los roles
+        $master->givePermissionTo(array_merge(
             $statusPermissions,
             $customerPermissions,
             $packagePermissions,
@@ -91,45 +89,10 @@ class RoleSeeder extends Seeder
             $rolePermissions
         ));
 
-        $roleAdmin->givePermissionTo(array_merge(
+        $master->givePermissionTo(array_merge(
             $statusPermissions,
             $customerPermissions,
             $packagePermissions
         ));
-
-
-
-        /*$role1 = Role::create(['name' => 'master']);
-        $role2 = Role::create(['name' => 'admin']);
-
-        Permission::create(['name' => 'status.index'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'status.create'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'status.store'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'status.edit'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'status.update'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'status.destroy'])->syncRoles([$role1, $role2]);
-
-        Permission::create(['name' => 'customers.index'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'customers.create'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'customers.store'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'customers.edit'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'customers.update'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'customers.destroy'])->syncRoles([$role1, $role2]);
-
-        Permission::create(['name' => 'packages.index'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'packages.create'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'packages.store'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'packages.edit'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'packages.update'])->syncRoles([$role1, $role2]);
-        Permission::create(['name' => 'packages.destroy'])->syncRoles([$role1, $role2]);
-
-        Permission::create(['name' => 'users.index'])->assignRole($role1);
-        Permission::create(['name' => 'users.create'])->assignRole($role1);
-        Permission::create(['name' => 'users.store'])->assignRole($role1);
-        Permission::create(['name' => 'users.edit'])->assignRole($role1);
-        Permission::create(['name' => 'users.update'])->assignRole($role1);
-        Permission::create(['name' => 'users.destroy'])->assignRole($role1);*/
-
-        
     }
 }

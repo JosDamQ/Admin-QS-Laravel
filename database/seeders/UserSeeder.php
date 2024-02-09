@@ -12,11 +12,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-         //\App\Models\User::factory(10)->create();
-
+        // Config user main with role main
          \App\Models\User::factory()->create([
-             'name' => 'Test User',
-             'email' => 'test@example3.com',
+             'name' => 'User Master',
+             'email' => 'admin@quickshipping.com',
              'password' => 'password',
          ])->assignRole('master');
     }
