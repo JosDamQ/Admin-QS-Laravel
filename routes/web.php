@@ -33,12 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     //Status Routes
-    Route::get('/status', [StatusController:: class, 'index'])->middleware('verified')->name('status.index');
-    Route::get('/status/create', [StatusController::class, 'create'])->name('status.create');
-    Route::post('/status', [StatusController:: class, 'store'])->middleware('verified')->name('status.store');
-    Route::get('/status/{id}/edit', [StatusController:: class, 'edit'])->middleware('verified')->name('status.edit');
-    Route::put('/status/{status}', [StatusController:: class, 'update'])->middleware('verified')->name('status.update');
-    Route::delete('/status/{status}', [StatusController:: class, 'destroy'])->middleware('verified')->name('status.destroy');
+    Route::resource('status', StatusController::class)->middleware('verified');
 
     //Customer Routes
     Route::get('/customers', [CustomerController:: class, 'index'])->middleware('verified')->name('customers.index');
