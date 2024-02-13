@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -13,10 +12,10 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Config user main with role main
-         \App\Models\User::factory()->create([
-             'name' => 'User Master',
-             'email' => 'admin@quickshipping.com',
-             'password' => 'password',
-         ])->assignRole('master');
+        \App\Models\User::factory()->create([
+            'name' => 'User Master',
+            'email' => 'admin@quickshipping.com',
+            'password' => 'password',
+        ])->assignRole('master');
     }
 }

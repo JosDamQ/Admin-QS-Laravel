@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordAssignedNotification;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Str;
-use Spatie\Permission\Models\Role;
-
 
 class UserController extends Controller
 {
@@ -20,6 +17,7 @@ class UserController extends Controller
     {
         // TODO: Implementar la lógica para mostrar todos los usuarios
         $users = User::orderBy('created_at', 'desc')->get();
+
         //$users = User::all();
         return view('users.index', compact('users'));
     }
@@ -29,6 +27,7 @@ class UserController extends Controller
     {
         //return view('users.create');
         $roles = Role::pluck('name', 'id'); // Obtener todos los roles como una lista de opciones
+
         return view('users.create', compact('roles'));
     }
 
@@ -44,10 +43,10 @@ class UserController extends Controller
 
         $password = Str::random(8);
 
-        $user = new User();
+        $user = new User;
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user-> password = $password;
+        $user->password = $password;
         //$user->roles()->assignRole($request->input('role'));
 
         $role = Role::findById($request->input('role')); // Obtener el rol por ID
@@ -75,21 +74,23 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::pluck('name', 'id'); // Obtener todos los roles como una lista de opciones
+
         return view('users.edit', compact('user', 'roles'));
     }
 
     // Método para actualizar un usuario existente
     public function update(Request $request, User $user)
     {
-        $request -> validate([
+        $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users,email,' . $user->id . ',id',
+            'email' => 'required|email|unique:users,email,'.$user->id.',id',
         ]);
 
-            if($user->hasRole('master')){
-                session()->flash('statusKey', 'error:User was not updated, because is master!');
-                return back();
-            }
+        if ($user->hasRole('master')) {
+            session()->flash('statusKey', 'error:User was not updated, because is master!');
+
+            return back();
+        }
 
         $data = request()->only('name', 'email');
 
@@ -107,6 +108,7 @@ class UserController extends Controller
         }
 
         session()->flash('statusKey', 'User was updated!');
+
         return to_route('users.index');
     }
 
@@ -115,6 +117,7 @@ class UserController extends Controller
     {
         $user->delete();
         session()->flash('statusKey', 'User was deleted!');
+
         return to_route('users.index');
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Roles;
-use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
@@ -15,6 +15,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Roles::orderBy('created_at', 'desc')->get();
+
         return view('roles.index', compact('roles'));
     }
 
@@ -24,6 +25,7 @@ class RoleController extends Controller
     public function create()
     {
         $permissions = Permission::all();
+
         return view('roles.create', compact('permissions'));
     }
 
@@ -45,9 +47,9 @@ class RoleController extends Controller
         $newRole->syncPermissions($permissionsRole);
 
         session()->flash('status', 'Role was created with their permissions!');
+
         return redirect()->route('roles.index');
 
-        
     }
 
     /**
@@ -64,6 +66,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $permissions = Permission::all();
+
         return view('roles.edit', compact('role', 'permissions'));
     }
 
@@ -73,19 +76,20 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $request->validate([
-            'name' => 'required|string|unique:roles,name,' . $role->id ,
-            'permissions' => 'nullable|array', 
+            'name' => 'required|string|unique:roles,name,'.$role->id,
+            'permissions' => 'nullable|array',
         ]);
-    
+
         // Actualizar el nombre del rol
         $role->name = $request->input('name');
         $role->save();
-    
+
         // Actualizar los permisos del rol
         $permissionsRole = Permission::find($request->input('permissions'));
         $role->syncPermissions($permissionsRole);
-    
+
         session()->flash('statusKey', 'Role was updated successfully!');
+
         return redirect()->route('roles.index');
     }
 

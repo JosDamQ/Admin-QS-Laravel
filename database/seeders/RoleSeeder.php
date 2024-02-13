@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -53,7 +52,7 @@ class RoleSeeder extends Seeder
             'users.store',
             'users.edit',
             'users.update',
-            'users.destroy'
+            'users.destroy',
         ];
 
         //Definir permisos para las rutas de Roles
@@ -63,7 +62,7 @@ class RoleSeeder extends Seeder
             'roles.store',
             'roles.edit',
             'roles.update',
-            'roles.destroy'
+            'roles.destroy',
         ];
 
         // Insertar permisos en la base de datos

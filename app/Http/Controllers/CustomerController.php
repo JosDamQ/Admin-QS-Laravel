@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
 use App\Models\Customer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -17,11 +17,11 @@ class CustomerController extends Controller
 
         $customers = Customer::orderBy('id', 'desc');
 
-        if($request->has('search')){
+        if ($request->has('search')) {
             $searchTerm = $request->input('search');
-            $customers->where(function($query) use ($searchTerm){
-                $query->where('name', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('code', 'like', '%' . $searchTerm . '%');
+            $customers->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('code', 'like', '%'.$searchTerm.'%');
             });
             //$customers->where('code', 'like', '%' . $searchTerm . '%');
         }
@@ -55,7 +55,7 @@ class CustomerController extends Controller
 
         $data = request()->only('name', 'surname', 'email', 'phone', 'password');
         //insert into DB
-        $customer = new Customer();
+        $customer = new Customer;
         $customer->name = $request->input('name');
         $customer->surname = $request->input('surname');
         $customer->code = fake()->unique()->bothify('???###'); // 'ABC123
@@ -66,6 +66,7 @@ class CustomerController extends Controller
         $customer->save();
 
         session()->flash('statusKey', 'Customer was created!');
+
         return to_route('customers.index');
     }
 
@@ -83,6 +84,7 @@ class CustomerController extends Controller
     public function edit(Customer $customer)
     {
         $customer = Customer::findOrFail($customer->id);
+
         return view('customers.edit', [
             'customer' => $customer,
         ]);
@@ -96,7 +98,7 @@ class CustomerController extends Controller
         $request->validate([
             'name' => 'required|string',
             'surname' => 'required|string',
-            'phone' => 'required|min:8'
+            'phone' => 'required|min:8',
         ]);
 
         $data = request()->only('name', 'surname', 'phone');
@@ -110,6 +112,7 @@ class CustomerController extends Controller
             //'password' => $data['password'],
         ]);
         session()->flash('statusKey', 'Customer was updated!');
+
         return to_route('customers.index');
     }
 
@@ -118,12 +121,14 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        if($customer->packages->count() > 0){
+        if ($customer->packages->count() > 0) {
             session()->flash('statusKey', 'error:Customer has packages and cannot be deleted!');
+
             return to_route('customers.index');
-        }else{
+        } else {
             $customer->delete();
             session()->flash('statusKey', 'Customer was deleted!');
+
             return to_route('customers.index');
         }
     }
