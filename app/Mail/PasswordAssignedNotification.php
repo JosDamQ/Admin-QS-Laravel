@@ -3,11 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
 
 class PasswordAssignedNotification extends Mailable
 {
@@ -16,8 +15,8 @@ class PasswordAssignedNotification extends Mailable
     /**
      * Create a new message instance.
      */
-
     public $user;
+
     public $password;
 
     public function __construct($user, $password)
@@ -29,9 +28,9 @@ class PasswordAssignedNotification extends Mailable
     public function build()
     {
         return $this->to($this->user->email)
-                    ->subject('Password Assigned Notification')
-                    -> view('emails.password_assigned', ['password' => $this->password]);
-                    
+            ->subject('Password Assigned Notification')
+            ->view('emails.password_assigned', ['password' => $this->password]);
+
     }
 
     /**

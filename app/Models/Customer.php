@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Factories\HasMany;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Database\Eloquent\Factories\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Customer extends Model
 {

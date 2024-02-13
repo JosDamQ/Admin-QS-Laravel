@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Package;
-use Illuminate\Http\Request;
-use App\Models\Customer;
 use App\Models\Status;
+use App\Models\Package;
+use App\Models\Customer;
+use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
@@ -16,22 +16,21 @@ class PackageController extends Controller
     {
         $packages = Package::query()->orderBy('created_at', 'desc');
 
-        if($request->has('search')){
+        if ($request->has('search')) {
             $searchTerm = $request->input('search');
-            $packages->where(function($query) use ($searchTerm){
-                $query->where('tracking', 'like', '%' . $searchTerm . '%')
-                    ->orWhereHas('customer', function($query) use ($searchTerm){
-                        $query->where('name', 'like', '%' . $searchTerm . '%');
+            $packages->where(function ($query) use ($searchTerm) {
+                $query->where('tracking', 'like', '%'.$searchTerm.'%')
+                    ->orWhereHas('customer', function ($query) use ($searchTerm) {
+                        $query->where('name', 'like', '%'.$searchTerm.'%');
                     });
             });
             //}'tracking', 'like', '%' . $searchTerm . '%');
         }
 
         $packages = $packages->get();
-    
+
         return view('packages.index', compact('packages'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -67,6 +66,7 @@ class PackageController extends Controller
             'status_id' => $data['status_id'],
         ]);
         session()->flash('statusKey', 'Package was created!');
+
         return to_route('packages.index');
     }
 
@@ -82,7 +82,7 @@ class PackageController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Package $package)
-    {   
+    {
 
         $customers = Customer::all();
         $statuses = Status::all();
@@ -100,7 +100,7 @@ class PackageController extends Controller
     public function update(Request $request, Package $package)
     {
         $request->validate([
-            'tracking' => 'required|integer|unique:packages,tracking,' . $package->id . ',id',
+            'tracking' => 'required|integer|unique:packages,tracking,'.$package->id.',id',
             'weight' => 'required|integer',
             'description' => 'required|string',
             'customer_id' => 'required',
@@ -118,6 +118,7 @@ class PackageController extends Controller
         ]);
 
         session()->flash('statusKey', 'Package was updated!');
+
         return to_route('packages.index');
     }
 
@@ -128,6 +129,7 @@ class PackageController extends Controller
     {
         $package->delete();
         session()->flash('statusKey', 'Package was deleted!');
+
         return to_route('packages.index');
     }
 }
